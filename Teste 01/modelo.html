@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pistas - Scotland Yard</title>
+</head>
+<body>
+    <header>
+        <h1>Pistas - Scotland Yard</h1>
+
+    </header>
+    <section>
+        <div>
+            Digite o número do caso: <input type="number" name="txtn" id="txtn"> 
+            <input type="button" value="Confirmar!" onclick="confirmar()">
+            <p>
+                Ou selecione um caso da lista:<select name="selcasos" id="selcasos"></select>
+                <input type="button" value="Confirmar!" onclick="confirmar()">
+            </p>
+            <p>
+                Tempo desejado em cada pista: <input type="number" name="numcounter" id="numcounter" value="10"> segundos.
+            </p>
+        </div>
+        <div id="caso">
+                <p><strong>Nenhum caso selecionado.</strong></p>
+        </div>
+        <div id="buttons">
+            <p>
+                Locais de investigação:
+            </p>
+            <p>
+                <input type="button" value="Farmácia" onclick="pista(farm)">
+                <input type="button" value="Banco" onclick="pista(banc)">
+                <input type="button" value="Estação de Carruagens" onclick="pista(estac)">
+                <input type="button" value="Docas" onclick="pista(docas)"> 
+                <input type="button" value="Hotel" onclick="pista(hotel)">
+                <input type="button" value="Chaveiro" onclick="pista(chav)">
+                <input type="button" value="Museus" onclick="pista(museu)">
+                <input type="button" value="Livraria" onclick="pista(livra)">
+                <input type="button" value="Parque" onclick="pista(parq)">
+                <input type="button" value="Casa de Penhores" onclick="pista(cpen)">
+                <input type="button" value="Teatro" onclick="pista(teat)">
+                <input type="button" value="Bar" onclick="pista(bar)">
+                <input type="button" value="Scotland Yard" onclick="pista(syard)">
+                <input type="button" value="Charutaria" onclick="pista(charut)">
+            
+            </p>
+            <p>
+                Pista:
+            </p> 
+
+        </div>
+        <div id="res">
+                       
+        </div>
+        <div>
+            <p><input type="button" value="Limpar pista." onclick="limpar()"></p>
+        </div>
+        <div id="divtimer">
+
+        </div>
+
+    </section>
+    <footer>
+        <p>&copy; luizfverissimo</p>
+    </footer>
+    <script src="script.js"></script>
+    
+</body>
+</html>
