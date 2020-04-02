@@ -24,20 +24,7 @@ function loadcasos(){
 }
 
 //Variaveis de locasis base - sem info das pistas
-let farm = undefined
-let banc = undefined
-let estac = undefined
-let docas = undefined
-let hotel = undefined
-let chav = undefined
-let museu = undefined
-let livra = undefined
-let parq = undefined
-let cpen = undefined
-let teat = undefined
-let bar = undefined
-let syard = undefined
-let charut = undefined
+let farm, banc, estac, docas, hotel, chav, museu, livra, parq, cpen, teat,bar, syard, charut 
 
 function nvalid(n){
     if(Number(n)> 0 && Number(n) <= 100){
