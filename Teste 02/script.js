@@ -40,7 +40,7 @@ let farm,
   charut;
 
 function nvalid(n) {
-  if (Number(n) > 0 && Number(n) <= 100) {
+  if (Number(n) > 0 && Number(n) <= pistas.length) {
     return true;
   } else {
     return false;
@@ -75,7 +75,7 @@ function confirmar() {
 
     ncaso.value = "";
   } else {
-    alert("Digitar um número de caso entre 1 a 100");
+    alert(`Digitar um número de caso entre 1 a ${pistas.length}`);
   }
 }
 
@@ -120,5 +120,3 @@ xhttp.onreadystatechange = function () {
 };
 xhttp.open("GET", "pistas.json", true);
 xhttp.send();
-
-
