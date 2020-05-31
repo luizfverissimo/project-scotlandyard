@@ -6,6 +6,7 @@ let divtimer = document.getElementById("ibiv6");
 let numcounter = document.getElementById("i7zns");
 
 let pistas, casoSelecionado, timer;
+let counter = Number(numcounter.value)
 
 const loadCases = async () => {
   //Carrega os casos ao iniciar a página
@@ -32,21 +33,26 @@ const confirmar = () => {
   caso.innerHTML = `<p><strong>O caso selecionado: ${casoSelecionado.caso} - ${casoSelecionado.nomecaso}</strong></p>`;
 };
 
-const pista = async (local) => {
+const pista = (local) => {
   if (casoSelecionado) {
     const pista = casoSelecionado[local];
     res.innerHTML = pista;
+    clearInterval(timer)
 
-    let counter = Number(numcounter.value);
-    timer = setInterval(function () {
-      if (counter <= 0) {
-        clearInterval(timer);
-        res.innerHTML = "Clique no botão de local para ver a pista.";
-        divtimer.innerHTML = "Fim da investigação em <strong>0 segundos</strong>"
-      }
-      divtimer.innerHTML = `Fim da investigação em <strong>${counter--} segundos </strong>`;
-    }, 1000);
+    const timerStarter = () =>{
+      timer = setInterval(function () {
+        if (counter <= 0) {
+          clearInterval(timer);
+          res.innerHTML = "Clique no botão de local para ver a pista.";
+          divtimer.innerHTML = "Fim da investigação em <strong>0 segundos</strong>"
+        } else {
+          divtimer.innerHTML = `Fim da investigação em <strong>${counter--} segundos </strong>`
+        }
+        ;
+      }, 1000);
+    }
 
+    timerStarter()
     
   } else {
     res.innerHTML = "Você precisa selecionar um caso acima.";
@@ -55,6 +61,7 @@ const pista = async (local) => {
 
 const limpar = () => {
   clearInterval(timer)
+  counter = Number(numcounter.value)
   res.innerHTML = "Clique no botão de local para ver a pista."
   divtimer.innerHTML = "Fim da investigação em <strong>0 segundos</strong>"
 }
