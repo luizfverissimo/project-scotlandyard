@@ -5,118 +5,56 @@ let selcaso = document.getElementById("ip2qs");
 let divtimer = document.getElementById("ibiv6");
 let numcounter = document.getElementById("i7zns");
 
-let keycaso = 0;
+let pistas, casoSelecionado, timer;
 
-//Carrega o select com os casos no JSON
-window.onload = loadcasos;
+const loadCases = async () => {
+  //Carrega os casos ao iniciar a página
+  fetch("./pistas.json").then((res) => {
+    res.json().then((data) => {
+      //Add casos na lista
+      Object.keys(data.pistas).forEach((el) => {
+        let item = document.createElement("option");
+        item.innerText = `Caso nº ${data.pistas[el].caso} - ${data.pistas[el].nomecaso}.`;
+        item.value = data.pistas[el].caso;
+        selcaso.appendChild(item);
+      });
+      pistas = data.pistas;
+    });
+  });
+};
 
-function loadcasos() {
-  let kkcaso = 0;
-  let loadcaso = 1;
-  while (loadcaso <= pistas.length) {
-    let item = document.createElement("option");
-    item.innerText = `Caso nº ${pistas[kkcaso].caso} - ${pistas[kkcaso].nomecaso}.`;
-    item.value = pistas[kkcaso].caso;
-    selcaso.appendChild(item);
-    kkcaso++;
-    loadcaso++;
-  }
-}
+window.onload = loadCases();
 
-//Variaveis de locasis base - sem info das pistas
-let farm,
-  banc,
-  estac,
-  docas,
-  hotel,
-  chav,
-  museu,
-  livra,
-  parq,
-  cpen,
-  teat,
-  bar,
-  syard,
-  charut;
+const confirmar = () => {
+  casoSelecionado = pistas.find((pista) => {
+    return pista.caso === `${selcaso.options[selcaso.selectedIndex].value}`;
+  });
+  caso.innerHTML = `<p><strong>O caso selecionado: ${casoSelecionado.caso} - ${casoSelecionado.nomecaso}</strong></p>`;
+};
 
-function nvalid(n) {
-  if (Number(n) > 0 && Number(n) <= pistas.length) {
-    return true;
-  } else {
-    return false;
-  }
-}
+const pista = async (local) => {
+  if (casoSelecionado) {
+    const pista = casoSelecionado[local];
+    res.innerHTML = pista;
 
-//Confirma a seleção do caso e preenche cada varíavel de local com a sua pista
-function confirmar() {
-  if (
-    nvalid(ncaso.value || nvalid(selcaso.options[selcaso.selectedIndex].value))
-  ) {
-    keycaso =
-      Number(ncaso.value || selcaso.options[selcaso.selectedIndex].value) - 1;
-    caso.innerHTML = `<p><strong>O caso selecionado: ${
-      ncaso.value || selcaso.options[selcaso.selectedIndex].value
-    } - ${pistas[keycaso].nomecaso}</strong></p>`;
-    res.innerHTML = "";
-    farm = pistas[keycaso].farm;
-    banc = pistas[keycaso].banc;
-    estac = pistas[keycaso].estac;
-    docas = pistas[keycaso].docas;
-    hotel = pistas[keycaso].hotel;
-    chav = pistas[keycaso].chav;
-    museu = pistas[keycaso].museu;
-    livra = pistas[keycaso].livra;
-    parq = pistas[keycaso].parq;
-    cpen = pistas[keycaso].cpen;
-    teat = pistas[keycaso].teat;
-    bar = pistas[keycaso].bar;
-    syard = pistas[keycaso].syard;
-    charut = pistas[keycaso].charut;
-
-    ncaso.value = "";
-  } else {
-    alert(`Digitar um número de caso entre 1 a ${pistas.length}`);
-  }
-}
-
-//Puxa as pistas do JSON conforme a variável setada no onclick
-function pista(n) {
-  if (
-    nvalid(ncaso.value) ||
-    nvalid(selcaso.options[selcaso.selectedIndex].value)
-  ) {
-    res.innerHTML = n;
-    //Timer
     let counter = Number(numcounter.value);
-    let timer = setInterval(function () {
+    timer = setInterval(function () {
       if (counter <= 0) {
         clearInterval(timer);
-        res.innerHTML = "";
-        divtimer.innerHTML = "";
+        res.innerHTML = "Clique no botão de local para ver a pista.";
+        divtimer.innerHTML = "Fim da investigação em <strong>0 segundos</strong>"
       }
       divtimer.innerHTML = `Fim da investigação em <strong>${counter--} segundos </strong>`;
     }, 1000);
+
+    
   } else {
-    alert("Insira uo número do caso antes de continuar.");
-  }
-}
-
-//Limpar pistas
-function limpar() {
-  res.innerHTML = "";
-}
-
-//variavel para receber as informações do JSON
-let pistas = undefined;
-
-//requisição http do arquivo pistas.json
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function () {
-  if (this.readyState == 4 && this.status == 200) {
-    // Typical action to be performed when the document is ready:
-    let response = JSON.parse(xhttp.responseText);
-    pistas = response.pistas;
+    res.innerHTML = "Você precisa selecionar um caso acima.";
   }
 };
-xhttp.open("GET", "pistas.json", true);
-xhttp.send();
+
+const limpar = () => {
+  clearInterval(timer)
+  res.innerHTML = "Clique no botão de local para ver a pista."
+  divtimer.innerHTML = "Fim da investigação em <strong>0 segundos</strong>"
+}
