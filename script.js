@@ -35,6 +35,7 @@ const confirmar = () => {
 
 const pista = (local) => {
   if (casoSelecionado) {
+    counter = Number(numcounter.value)
     const pista = casoSelecionado[local];
     res.innerHTML = pista;
     clearInterval(timer)
